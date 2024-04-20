@@ -75,14 +75,6 @@ const resgisterUser = asyncHandler( async (req, res) => {
 });
 
 const loginUser =  asyncHandler(async(req,res) => {
-    //get data
-
-    // check username or email 
-    // find the user 
-    // password check 
-    // access and refresh toke generate 
-    // send cookies 
-    // send response
     const {email, username, password} = req.body
     
     if (!(username ||email)) {
@@ -140,7 +132,7 @@ const logoutUser  = asyncHandler(async (req,res) => {
 
 const refreshAccessToken = asyncHandler(async (req, res) => {
     const incomingRefreshToken = req.cookies.refreshToken  || req.body.refreshToken;
-    if (incomingRefreshToken) {
+    if (!incomingRefreshToken) {
         throw new ApiError(401, "Unauthorized Request");
     }
     try {
